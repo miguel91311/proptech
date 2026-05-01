@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Bloquear acesso a pastas e ficheiros de backoffice/sistema
+Disallow: /credito/admin/
+Disallow: /credito/uploads/
+Disallow: /credito/blog_uploads/
+Disallow: /credito/assets/videos/
+Disallow: /credito/*.sql$
+Disallow: /credito/*.json$
+Disallow: /credito/*.md$
+Disallow: /credito/.htaccess
+
+Sitemap: https://www.ocreditounificado.pt/credito/sitemap.xml

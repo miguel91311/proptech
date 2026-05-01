@@ -1,0 +1,25 @@
+# Render.com deploy configuration
+services:
+  - type: web
+    name: proptech-backend
+    env: docker
+    plan: standard
+    dockerfilePath: ./backend-api/Dockerfile
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRATION
+        value: 1h
+      - key: CORS_ORIGINS
+        value: https://proptech.pt,https://www.proptech.pt
+    healthCheckPath: /health
+    disk:
+      name: tmp
+      mountPath: /tmp
+      sizeGB: 1
