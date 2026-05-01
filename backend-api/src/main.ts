@@ -4,39 +4,52 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  try {
+    console.log('🚀 Starting NestJS application...');
+    console.log('📍 PORT:', process.env.PORT ?? 3000);
+    console.log('🌍 NODE_ENV:', process.env.NODE_ENV);
+    console.log('🔌 DATABASE_URL exists:', !!process.env.DATABASE_URL);
 
-  const allowedOrigins = (
-    process.env.CORS_ORIGINS || 'http://localhost:3001,http://127.0.0.1:3001'
-  ).split(',');
+    const app = await NestFactory.create(AppModule);
+    console.log('✅ NestJS app created');
 
-  app.enableCors({
-    origin: allowedOrigins,
-    credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type, Accept, Authorization',
-  });
+    const allowedOrigins = (
+      process.env.CORS_ORIGINS || 'http://localhost:3001,http://127.0.0.1:3001'
+    ).split(',');
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-    }),
-  );
+    app.enableCors({
+      origin: allowedOrigins,
+      credentials: true,
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      allowedHeaders: 'Content-Type, Accept, Authorization',
+    });
 
-  const config = new DocumentBuilder()
-    .setTitle('PropTech API - Painel Imobiliário')
-    .setDescription(
-      'A API de backend corporativa baseada no RESO Data Dictionary 2.0',
-    )
-    .setVersion('1.0')
-    .addBearerAuth() // Suporte para JWT no painel do Swagger
-    .build();
+    app.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+      }),
+    );
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document); // Configura o endpoint /api
+    const config = new DocumentBuilder()
+      .setTitle('PropTech API - Painel Imobiliário')
+      .setDescription(
+        'A API de backend corporativa baseada no RESO Data Dictionary 2.0',
+      )
+      .setVersion('1.0')
+      .addBearerAuth()
+      .build();
 
-  await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('api', app, document);
+
+    const port = process.env.PORT ?? 3000;
+    await app.listen(port, '0.0.0.0');
+    console.log(`🎯 Application is running on: http://0.0.0.0:${port}`);
+  } catch (error) {
+    console.error('💥 FATAL ERROR during startup:', error);
+    process.exit(1);
+  }
 }
 bootstrap();
