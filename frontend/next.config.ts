@@ -1,20 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
-  distDir: "dist",
+  output: 'standalone',
   images: {
     unoptimized: true,
-    remotePatterns: [
+  },
+  async rewrites() {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+    return [
       {
-        protocol: "https",
-        hostname: "images.unsplash.com",
+        source: '/api/:path*',
+        destination: `${apiUrl}/:path*`,
       },
-      {
-        protocol: "https",
-        hostname: "*.cartocdn.com",
-      },
-    ],
+    ];
   },
 };
 
