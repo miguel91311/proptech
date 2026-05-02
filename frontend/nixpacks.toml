@@ -1,7 +1,0 @@
-providers = []
-
-[phases.build]
-cmds = []
-
-[phases.start]
-cmds = []

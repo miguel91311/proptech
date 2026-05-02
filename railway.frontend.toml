@@ -1,6 +1,6 @@
 [build]
 builder = "DOCKERFILE"
-dockerfilePath = "Dockerfile"
+dockerfilePath = "frontend/Dockerfile"
 
 [deploy]
 startCommand = "sh -c 'serve /app/dist -l ${PORT:-3001} --no-clipboard'"
