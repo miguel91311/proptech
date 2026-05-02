@@ -1,7 +1,5 @@
 [build]
 builder = "DOCKERFILE"
-dockerfilePath = "Dockerfile"
 
 [deploy]
 startCommand = "sh -c 'serve /app/dist -l ${PORT:-3001} --no-clipboard'"
-restartPolicyMaxRetries = 10
