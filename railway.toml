@@ -1,0 +1,7 @@
+[[services]]
+  name = "frontend"
+  path = "frontend"
+
+[[services]]
+  name = "admin"
+  path = "admin"
