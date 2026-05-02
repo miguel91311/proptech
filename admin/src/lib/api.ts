@@ -1,10 +1,9 @@
 import axios from "axios";
 
-// Proxy reverso: /api → API real (evita CORS e localhost)
-const baseURL = typeof window !== 'undefined' ? '/api' : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000');
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
 export const api = axios.create({
-  baseURL,
+  baseURL: API_URL,
   headers: { "Content-Type": "application/json" },
 });
 
@@ -27,7 +26,7 @@ api.interceptors.response.use(
   }
 );
 
-// Funções para o admin
+// Funções do admin
 export const login = (email: string, password: string) =>
   api.post("/auth/login", { email, password });
 
