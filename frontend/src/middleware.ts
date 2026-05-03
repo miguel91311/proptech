@@ -6,7 +6,11 @@ export function middleware(request: NextRequest) {
 
     // Proxy /api/* para o backend
     if (pathname.startsWith('/api/')) {
-        const apiUrl = process.env.API_URL || 'http://localhost:3000';
+        let apiUrl = process.env.API_URL || 'http://localhost:3000';
+        // Adicionar https:// se não tiver protocolo
+        if (!apiUrl.startsWith('http://') && !apiUrl.startsWith('https://')) {
+            apiUrl = 'https://' + apiUrl;
+        }
         const newUrl = new URL(pathname.replace('/api', ''), apiUrl);
 
         // Copiar query params
