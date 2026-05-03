@@ -1,5 +1,5 @@
 [build]
-builder = "DOCKERFILE"
+builder = "NIXPACKS"
 
 [deploy]
-startCommand = "sh -c 'serve /app/dist -l ${PORT:-3001} --no-clipboard'"
+startCommand = "npm start"
