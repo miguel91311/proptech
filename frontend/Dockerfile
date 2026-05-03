@@ -20,11 +20,8 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN apk add --no-cache sed
-
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+# Copiar ficheiros estáticos exportados
+COPY --from=builder /app/dist ./
 
 # Copiar server.js customizado com proxy
 COPY server.js ./server.js
