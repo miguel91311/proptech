@@ -1,5 +1,12 @@
 [build]
 builder = "NIXPACKS"
 
+[build.nixpacks]
+version = "1.29.0"
+
+[build.nixpacks.plan]
+[build.nixpacks.plan.setup]
+version = "20"
+
 [deploy]
 startCommand = "npm start"
