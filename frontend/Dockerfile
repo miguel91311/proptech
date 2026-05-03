@@ -25,4 +25,5 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
+# Force rebuild timestamp: 2026-05-03-1635
 CMD ["node", "server.js"]
